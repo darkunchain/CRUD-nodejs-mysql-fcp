@@ -4,6 +4,29 @@ const router = express.Router();
 const pool = require('../database');
 const { isLoggedIn } = require('../lib/auth');
 
+
+
+
+router.get('/contratos', (req, res) => {
+    res.render('links/contratos');
+});
+
+router.get('/contratistas', (req, res) => {
+    res.render('links/contratistas');
+});
+
+router.get('/entidades', (req, res) => {
+    res.render('links/entidades');
+});
+
+router.get('/subcuentas', (req, res) => {
+    res.render('links/subcuentas');
+});
+
+router.get('/estados', (req, res) => {
+    res.render('links/estados');
+});
+
 router.get('/add', (req, res) => {
     res.render('links/add');
 });
@@ -21,10 +44,49 @@ router.post('/add', async (req, res) => {
     res.redirect('/links');
 });
 
+
+
 router.get('/', isLoggedIn, async (req, res) => {
-    const links = await pool.query('SELECT * FROM links WHERE user_id = ?', [req.user.id]);
-    res.render('links/list', { links });
+    console.log('req.user: ', req.user)
+
+    if(req.user.roles_idrol = 1){
+        permisos = [
+            {title: 'lectura',url: 'links/list'},
+            {title: 'Generar reportes',url: 'links/reportes'},
+            {title: 'Agregar Contrato',url: 'links/add'},
+            {title: 'Modificar contrato',url: 'links/edit'},
+            {title: 'Eliminar registro',url: 'links/delete'}
+            ]
+    }else if(req.user.roles_idrol = 2){
+        permisos = [
+            {title: 'lectura',url: 'links/list'},
+            {title: 'Generar reportes',url: 'links/reportes'},
+            {title: 'Agregar Contrato',url: 'links/add'}            
+            ]
+    }else if(req.user.roles_idrol = 3){
+        permisos = [
+            {title: 'lectura',url: 'links/list'},            
+            {title: 'Modificar contrato',url: 'links/edit'},
+            {title: 'Eliminar registro',url: 'links/delete'}
+            ]
+    }else if(req.user.roles_idrol = 4){
+        permisos = [
+            {title: 'lectura',url: 'links/list'},
+            {title: 'Generar reportes',url: 'links/reportes'}            
+            ]
+    }else{
+        permisos = [
+            {title: 'lectura',url: 'links/list'}            
+            ]
+    }
+    console.log('permisos: ',permisos)
+    const registros = await pool.query('SELECT * FROM contrato');
+
+    res.render('links/list', { registros,permisos });
 });
+
+
+
 
 router.get('/delete/:id', async (req, res) => {
     const { id } = req.params;

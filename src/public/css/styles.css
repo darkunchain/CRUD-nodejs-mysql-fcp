@@ -5,6 +5,10 @@ font-family: 'Oswald', sans-serif;
     overflow: hidden;
 }
 
+.m-4 {
+  margin: 0rem!important;
+}
+
 .index {
     width: 100vw;
     height: 100vh;

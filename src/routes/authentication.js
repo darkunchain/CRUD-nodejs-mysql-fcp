@@ -1,12 +1,15 @@
 const express = require('express');
 const router = express.Router();
+const pool = require('../database');
 
 const passport = require('passport');
 const { isLoggedIn } = require('../lib/auth');
 
 // SIGNUP
-router.get('/signup', (req, res) => {
-  res.render('auth/signup');
+router.get('/signup', async (req, res) => {
+  const rolDropdown = await pool.query('SELECT * FROM roles');
+  
+  res.render('auth/signup', {rolDropdown});
 });
 
 router.post('/signup', passport.authenticate('local.signup', {
@@ -37,6 +40,7 @@ router.post('/signin', (req, res, next) => {
 });
 
 router.get('/logout', (req, res) => {
+  console.log('req.logout: ', req)
   req.logOut();
   res.redirect('/');
 });

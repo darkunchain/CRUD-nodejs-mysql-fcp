@@ -1,16 +1,39 @@
 <div class="container p-4">
     <div class="row">
-        <div class="col-md-4 mx-auto">
+        <div class="col-md-8 mx-auto">
             <div class="card text-center">
                 <div class="card-body">
                     <h3>Bienvenido {{user.fullname}}</h3>
                     <h4>{{user.username}}</h4>
-                    <a href="/links" class="btn btn-primary m-4">
-                        Save your Links    
-                    </a>
+                    <div class="card-body"><h5 class="text-center">Puedes gestionar las siguientes opciones:</h5></div>
+                    <div class="row card-item">
+                        <div class="col-md-4 mx-auto">
+                            <a href="/links/contratos" class="btn btn-primary m-4">Contratos</a>
+                        </div>
+
+                        <div class="col-md-4 mx-auto">
+                            <a href="/links" class="btn btn-primary m-4">Contratistas</a>
+                        </div>
+
+                        <div class="col-md-4 mx-auto">
+                            <a href="/links" class="btn btn-primary m-4">Entidades Solicitantes</a>
+                        </div>
+
+                         <div class="col-md-4 mx-auto">
+                            <a href="/links" class="btn btn-primary m-4">Subcuentas</a>
+                        </div>
+
+                         <div class="col-md-4 mx-auto">
+                            <a href="/links" class="btn btn-primary m-4">Estados de contrato</a>
+                        </div>
+
+                         <div class="col-md-4 mx-auto">
+                            <a href="/links" class="btn btn-primary m-4">Usuarios</a>
+                        </div>
+
+                    </div>                    
                 </div>
             </div>
         </div>
-
     </div>
 </div>
