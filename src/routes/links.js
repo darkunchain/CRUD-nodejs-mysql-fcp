@@ -9,7 +9,7 @@ const { isLoggedIn } = require('../lib/auth');
 
 router.get('/contratos/contratos', async (req, res) => {
     usuario = req.user
-    const registros = await pool.query('select * from contrato inner join contratista on idcontratista = contratista_idcontratista inner join estados on estados_idestados = idestados inner join subcuenta on subcuenta_idsubcuenta = idsubcuenta;');
+    const registros = await pool.query('select * from contrato');
     console.log('---registros: ', registros)
     res.render('links/contratos/contratos', { registros, usuario });
 });
