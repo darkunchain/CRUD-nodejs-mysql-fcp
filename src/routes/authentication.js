@@ -41,8 +41,8 @@ router.post('/signin', (req, res, next) => {
 
 router.get('/logout', (req, res) => {
   console.log('req.logout: ', req)
-  req.logOut();
-  res.redirect('/');
+  //req.logOut();
+  res.redirect('/signin');
 });
 
 router.get('/profile', isLoggedIn, (req, res) => {

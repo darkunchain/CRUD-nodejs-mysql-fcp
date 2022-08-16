@@ -7,27 +7,56 @@ const { isLoggedIn } = require('../lib/auth');
 
 
 
-router.get('/contratos', (req, res) => {
-    res.render('links/contratos');
+router.get('/contratos/contratos', async (req, res) => {
+    usuario = req.user
+    const registros = await pool.query('select * from contrato inner join contratista on idcontratista = contratista_idcontratista inner join estados on estados_idestados = idestados inner join subcuenta on subcuenta_idsubcuenta = idsubcuenta;');
+    console.log('---registros: ', registros)
+    res.render('links/contratos/contratos', { registros, usuario });
 });
 
-router.get('/contratistas', (req, res) => {
-    res.render('links/contratistas');
+
+
+router.get('/contratistas/contratistas', async (req, res) => {
+    usuario = req.user
+    const registros = await pool.query('SELECT * FROM contratista');
+
+    console.log('--contratistas: ', registros)
+    res.render('links/contratistas/contratistas', { registros, usuario });
 });
 
-router.get('/entidades', (req, res) => {
-    res.render('links/entidades');
+router.get('/entidades/entidades', async (req, res) => {
+    usuario = req.user
+    const registros = await pool.query('SELECT * FROM entidadsolicitante');
+
+    console.log('--entidades: ', registros)
+    res.render('links/entidades/entidades', { registros, usuario });
 });
 
-router.get('/subcuentas', (req, res) => {
-    res.render('links/subcuentas');
+router.get('/subcuentas/subcuentas', async (req, res) => {
+    usuario = req.user
+    const registros = await pool.query('SELECT * FROM subcuenta');
+
+    console.log('--subcuentas: ', registros)
+    res.render('links/subcuentas/subcuentas', { registros, usuario });
 });
 
-router.get('/estados', (req, res) => {
-    res.render('links/estados');
+router.get('/estados/estados', async (req, res) => {
+    usuario = req.user
+    const registros = await pool.query('SELECT * FROM estados');
+
+    console.log('--estados: ', registros)
+    res.render('links/estados/estados', { registros, usuario });
 });
 
-router.get('/add', (req, res) => {
+router.get('/usuarios/usuarios', async (req, res) => {
+    usuario = req.user
+    const registros = await pool.query('SELECT * FROM usuarios');
+
+    console.log('--usuarios: ', registros)
+    res.render('links/usuarios/usuarios', { registros, usuario });
+});
+
+router.get('/add', async (req, res) => {
     res.render('links/add');
 });
 
