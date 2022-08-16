@@ -9,8 +9,15 @@ const { isLoggedIn } = require('../lib/auth');
 
 router.get('/contratos/contratos', async (req, res) => {
     usuario = req.user
-    const registros = await pool.query('select * from contrato');
-    console.log('---registros: ', registros)
+    const registros = await pool.query('select * from contrato');    
+    registros.forEach(element => {
+        element.valorInicial = element.valorInicial.toLocaleString('es-CO', {style: 'currency', currency: 'COP'});
+        element.valoradiciones = element.valoradiciones.toLocaleString('es-CO', {style: 'currency', currency: 'COP'});
+        element.valorFinal = element.valorFinal.toLocaleString('es-CO', {style: 'currency', currency: 'COP'});
+    });
+    console.log('---registros: ', registros[0])
+
+    //valorInicial = valorInicial.toLocaleString('es-CO', {style: 'currency', currency: 'COP'});
     res.render('links/contratos/contratos', { registros, usuario });
 });
 
