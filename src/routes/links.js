@@ -43,7 +43,7 @@ router.get('/contratos/contratos', async (req, res) => {
         element.fechaFin = new Date(element.fechaFin).toLocaleDateString('es-ES', {year: 'numeric', month: 'short', day: '2-digit'})        
     });   
 
-    console.log('---registros: ',registros[0])
+    console.log('---usuario: ', usuario)
     res.render('links/contratos/contratos', { registros, usuario, subcuentas, contratistas, entidads });
 });
 
@@ -91,6 +91,42 @@ router.get('/usuarios/usuarios', async (req, res) => {
 
 router.get('/add', async (req, res) => {
     res.render('links/add');
+});
+
+router.post('/contratos/add', async (req, res) => {
+    console.log('---req.user: ', req.user)
+    const { idusuarios} = req.user
+    const { selectcont, cedulacont, tipocont, objeto, 
+        NoContrato, anio, estado, valorInicial, 
+        valorFinal, valorAdiciones, entidad, subcuenta, 
+        fechaFirma, fechaInicio, fechaFin} = req.body
+
+    const noContrato = NoContrato + "-" + anio
+    console.log('---NoContrato: ', noContrato)
+    const creadoEn = new Date()
+    const modificadoEn = new Date()
+
+    const newLink = {
+        'NoContrato' : noContrato, anio, objeto, valorInicial, valorAdiciones,
+        valorFinal, fechaFirma, fechaInicio, fechaFin, creadoEn,
+        modificadoEn, 'creadoPor': idusuarios, 'modificadoPor' : idusuarios,
+        'subcuenta_idsubcuenta' : subcuenta, 'estados_idestados':estado        
+    };
+    await pool.query('INSERT INTO contrato set ?', [newLink]);
+    req.flash('success', 'Contrato almacenado correctamente');
+
+    idContratoNew = await pool.query(`SELECT idcontrato from contrato WHERE NoContrato = ?`, noContrato)
+    
+    
+    const newQue = {
+        'contratista_idcontratista':selectcont,'contrato_idcontrato':idContratoNew[0].idcontrato
+    }    
+    await pool.query('INSERT INTO contratistacontrato set ?', [newQue]);
+    req.flash('success', 'Nueva relacion guardada en base de datos');
+
+
+
+    res.redirect('/links/contratos/contratos');
 });
 
 router.post('/add', async (req, res) => {

@@ -10,7 +10,7 @@
 
 
         <!-- %%%%%%%%%%%%%% Formulario Modal %%%%%%%%%%%%%% -->
-        <form action="/" method="POST">
+        <form action="/links/contratos/add" method="POST">
 
           <div class="card border-dark mb-2">
             <div class="card-body">
@@ -45,14 +45,14 @@
 
                 <div class="col-md">
                   <div class="form-floating mb-2">
-                    <input type="text" class="form-control form-control-sm" id="cedulacont" name="marca" readonly="readonly">
+                    <input type="text" class="form-control form-control-sm" id="cedulacont" name="cedulacont" readonly="readonly">
                     <label for="floatingInput">Cedula o NIT</label>
                   </div>
                 </div>
 
                 <div class="col-md">
                   <div class="form-floating mb-2">
-                    <input type="text" class="form-control form-control-sm" id="tipocont" name="marca" readonly="readonly">
+                    <input type="text" class="form-control form-control-sm" id="tipocont" name="tipocont" readonly="readonly">
                     <label for="floatingInput">Tipo de persona</label>
                   </div>
                 </div>
@@ -70,7 +70,7 @@
 
                 <div class="col-md">
                   <div class="form-floating mt-3">
-                    <textarea class="form-control" name="sistemaOperativo" id="floatingTextarea"></textarea>
+                    <textarea class="form-control" name="objeto" id="floatingTextarea"></textarea>
                     <label for="floatingTextarea">Objeto del contrato</label>
                   </div>
                 </div>
@@ -79,20 +79,20 @@
               <div class="row g-3">
                 <div class="col-md">
                   <div class="form-floating mb-2">
-                    <input type="text" class="form-control form-control-sm" id="floatingInput" name="marca">
+                    <input type="text" class="form-control form-control-sm" id="NoContrato" name="NoContrato">
                     <label for="floatingInput">No. de Contrato.</label>
                   </div>
                 </div>
 
                 <div class="col-md">
                   <div class="form-floating mb-2">
-                    <input type="text" class="form-control form-control-sm" id="floatingInput" name="marca">
+                    <input type="text" class="form-control form-control-sm" id="anio" name="anio">
                     <label for="floatingInput">Año.</label>
                   </div>
                 </div>
 
                 <div class="col-md">
-                  <select class="form-select" aria-label="Default select example" name="linea">
+                  <select class="form-select" aria-label="Default select example" name="estado" id="estado">
                     <option selected>Estado</option>
                     <option value="1">TERMINADO</option>
                     <option value="2">EJECUCIÓN</option>
@@ -110,21 +110,21 @@
 
                 <div class="col-md">
                   <div class="form-floating mb-2">
-                    <input type="text" class="form-control form-control-sm" id="floatingInput" name="marca">
+                    <input type="text" class="form-control form-control-sm" id="valorInicial" name="valorInicial">
                     <label for="floatingInput">Valor Inicial.</label>
                   </div>
                 </div>
 
                 <div class="col-md">
                   <div class="form-floating mb-2">
-                    <input type="text" class="form-control form-control-sm" id="floatingInput" name="marca">
+                    <input type="text" class="form-control form-control-sm" id="valorFinal" name="valorFinal">
                     <label for="floatingInput">Valor Final.</label>
                   </div>
                 </div>
 
                 <div class="col-md">
                   <div class="form-floating mb-2">
-                    <input type="text" class="form-control form-control-sm" id="floatingInput" name="marca">
+                    <input type="text" class="form-control form-control-sm" id="valorAdiciones" name="valorAdiciones">
                     <label for="floatingInput">Valor Adiciones.</label>
                   </div>
                 </div>
@@ -144,7 +144,7 @@
 
                 <div class="col">
                   <div class="form-floating mb-2">
-                    <select class="form-select" aria-label="Default select example" name="proveedor" style="max-width:30%;">
+                    <select class="form-select" aria-label="Default select example" name="entidad" id="entidad" style="max-width:30%;">
                       <option selected>Entidad Solicitante</option>
                       {{#each entidads}}
                       <option value="{{identidadSolicitante}}">{{nombreent}}</option>
@@ -156,7 +156,7 @@
 
                 <div class="col">
                   <div class="form-floating mb-2">
-                    <select class="form-select" aria-label="Default select example" name="proveedor" style="max-width:30%;">
+                    <select class="form-select" aria-label="Default select example" name="subcuenta" id="subcuenta" style="max-width:30%;">
                       <option selected>Subcuenta</option>
                       {{#each subcuentas}}
                       <option value="{{idsubcuenta}}">{{nombresub}}</option>
@@ -182,7 +182,7 @@
 
                   <div id="date-picker-example" class="md-form md-outline input-with-post-icon datepicker date">
                     <input placeholder="Select date" type="text" id="fechaFirma" class="form-control"
-                      name="fechaInstalacion">
+                      name="fechaFirma">
                     <label for="example">Fecha Firma del contrato</label>
                     <i class="fas fa-calendar input-prefix" tabindex=0></i>
                   </div>
@@ -224,7 +224,7 @@
                 <div class="col-md">
                   <div id="date-picker-example" class="md-form md-outline input-with-post-icon datepicker">
                     <input placeholder="Select date" type="text" id="fechaFin" class="form-control"
-                      name="fechaFirma">
+                      name="fechaFin">
                     <label for="example">Fecha Terminación de contrato</label>
                     <i class="fas fa-calendar input-prefix" tabindex=0></i>
                   </div>
