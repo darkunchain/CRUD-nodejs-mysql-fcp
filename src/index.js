@@ -9,6 +9,9 @@ const flash = require('connect-flash');
 const MySQLStore = require('express-mysql-session')(session);
 const bodyParser = require('body-parser');
 
+
+
+
 const { database } = require('./keys');
 
 // Intializations
@@ -23,9 +26,13 @@ app.engine('.hbs', exphbs.engine({
   layoutsDir: path.join(app.get('views'), 'layouts'),
   partialsDir: path.join(app.get('views'), 'partials'),
   extname: '.hbs',
-  //helpers: require('./lib/handlebars')
+  helpers: require('./lib/handlebars')
 }))
 app.set('view engine', '.hbs');
+
+
+
+
 
 // Middlewares
 app.use(morgan('dev'));

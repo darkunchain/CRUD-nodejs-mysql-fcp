@@ -7,18 +7,44 @@ const { isLoggedIn } = require('../lib/auth');
 
 
 
+
+
 router.get('/contratos/contratos', async (req, res) => {
     usuario = req.user
-    const registros = await pool.query('select * from contrato');    
+    const query = `select NoContrato, anio, objeto, valorInicial, valoradiciones, valorFinal,
+    fechaInicio, fechaFirma, fechaFin, creadoEn, modificadoEn, nombrecont,
+    contratista.cedulaNIT, tipo, nombreest, nombresub, username from contrato
+    
+    inner join contratistacontrato on idcontrato = contrato_idcontrato
+    inner join contratista on idcontratista = contratista_idcontratista
+    inner join estados on estados_idestados = idestados
+    inner join subcuenta on subcuenta_idsubcuenta = idsubcuenta
+    inner join usuarios on modificadoPor = idusuarios
+    limit 10`
+
+    const subcuenta = `SELECT idsubcuenta, nombresub from subcuenta ORDER BY nombresub`
+    const contratista = `SELECT * from contratista ORDER BY nombrecont`
+    const entidad = `SELECT * from entidadsolicitante ORDER BY nombreent`
+
+
+    const contratistas = await pool.query(contratista);
+    const subcuentas = await pool.query(subcuenta);
+    const entidads = await pool.query(entidad);
+    const registros = await pool.query(query);
+
+    
+    
     registros.forEach(element => {
         element.valorInicial = element.valorInicial.toLocaleString('es-CO', {style: 'currency', currency: 'COP'});
         element.valoradiciones = element.valoradiciones.toLocaleString('es-CO', {style: 'currency', currency: 'COP'});
-        element.valorFinal = element.valorFinal.toLocaleString('es-CO', {style: 'currency', currency: 'COP'});
-    });
-    console.log('---registros: ', registros[0])
+        element.valorFinal = element.valorFinal.toLocaleString('es-CO', {style: 'currency', currency: 'COP'});        
+        element.fechaInicio = new Date(element.fechaInicio).toLocaleDateString('es-ES', {year: 'numeric', month: 'short', day: '2-digit'})
+        element.fechaFirma = new Date(element.fechaFirma).toLocaleDateString('es-ES', {year: 'numeric', month: 'short', day: '2-digit'})
+        element.fechaFin = new Date(element.fechaFin).toLocaleDateString('es-ES', {year: 'numeric', month: 'short', day: '2-digit'})        
+    });   
 
-    //valorInicial = valorInicial.toLocaleString('es-CO', {style: 'currency', currency: 'COP'});
-    res.render('links/contratos/contratos', { registros, usuario });
+    console.log('---registros: ',registros[0])
+    res.render('links/contratos/contratos', { registros, usuario, subcuentas, contratistas, entidads });
 });
 
 

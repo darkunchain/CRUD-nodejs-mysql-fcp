@@ -1,0 +1,266 @@
+<div class="modal fade" id="formModal{{@index}}" data-backdrop="static" data-keyboard="false" tabindex="-1"
+  aria-labelledby="formModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="formModalLabel">Contrato nuevo</h5>
+        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+
+        <!-- %%%%%%%%%%%%%% Formulario Modal %%%%%%%%%%%%%% -->
+        <form action="/" method="POST">
+
+          <div class="card border-dark mb-2">
+            <div class="card-body">
+
+              <div class="row g-1">
+                <div class="col-md">
+                  <div class="form-floating mb-2">
+                    <select class="form-select" aria-label="Default select example" name="selectcont" id="selectcont" style="max-width:100%;">
+                      <option selected>Contratista</option>
+                      {{#each contratistas}}
+                      <option value="{{idcontratista}}">{{nombrecont}}</option>                         
+                      {{/each}}
+                    </select>
+                  </div>
+                  {{#each contratistas}}
+                      <div id="ced{{idcontratista}}" style="display: none">{{cedulaNIT}}</div>
+                      <div id="tip{{idcontratista}}" style="display: none">{{tipo}}</div>
+                  {{/each}}                  
+                </div>
+              </div>
+
+              <script>
+                $('#selectcont').change(function() {
+                  var element = $(this).val()                                   
+                  $('#cedulacont').val($('#ced'+element).html())
+                  $('#tipocont').val($('#tip'+element).html())
+                });
+              </script>
+              
+
+              <div class="row g-2">                
+
+                <div class="col-md">
+                  <div class="form-floating mb-2">
+                    <input type="text" class="form-control form-control-sm" id="cedulacont" name="marca" readonly="readonly">
+                    <label for="floatingInput">Cedula o NIT</label>
+                  </div>
+                </div>
+
+                <div class="col-md">
+                  <div class="form-floating mb-2">
+                    <input type="text" class="form-control form-control-sm" id="tipocont" name="marca" readonly="readonly">
+                    <label for="floatingInput">Tipo de persona</label>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+
+          <div class="card border-dark mb-2">
+
+            <div class="card-body">
+
+              <div class="row g-1">
+
+                <div class="col-md">
+                  <div class="form-floating mt-3">
+                    <textarea class="form-control" name="sistemaOperativo" id="floatingTextarea"></textarea>
+                    <label for="floatingTextarea">Objeto del contrato</label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row g-3">
+                <div class="col-md">
+                  <div class="form-floating mb-2">
+                    <input type="text" class="form-control form-control-sm" id="floatingInput" name="marca">
+                    <label for="floatingInput">No. de Contrato.</label>
+                  </div>
+                </div>
+
+                <div class="col-md">
+                  <div class="form-floating mb-2">
+                    <input type="text" class="form-control form-control-sm" id="floatingInput" name="marca">
+                    <label for="floatingInput">Año.</label>
+                  </div>
+                </div>
+
+                <div class="col-md">
+                  <select class="form-select" aria-label="Default select example" name="linea">
+                    <option selected>Estado</option>
+                    <option value="1">TERMINADO</option>
+                    <option value="2">EJECUCIÓN</option>
+                    <option value="3">ACTA DE CIERRE</option>
+                    <option value="4">ACTA DE LIQUIDACIÓN</option>
+                    <option value="5">CONTRATO DE TRANSACCIÓN</option>
+                    <option value="6">ACTA DE LIQUIDACIÓN - TRANSACCIÓN</option>
+                    <option value="7">CESIÓN DE DERECHOS</option>
+                    <option value="8">PENDIENTE ACTA DE INICIO</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="row g-3">
+
+                <div class="col-md">
+                  <div class="form-floating mb-2">
+                    <input type="text" class="form-control form-control-sm" id="floatingInput" name="marca">
+                    <label for="floatingInput">Valor Inicial.</label>
+                  </div>
+                </div>
+
+                <div class="col-md">
+                  <div class="form-floating mb-2">
+                    <input type="text" class="form-control form-control-sm" id="floatingInput" name="marca">
+                    <label for="floatingInput">Valor Final.</label>
+                  </div>
+                </div>
+
+                <div class="col-md">
+                  <div class="form-floating mb-2">
+                    <input type="text" class="form-control form-control-sm" id="floatingInput" name="marca">
+                    <label for="floatingInput">Valor Adiciones.</label>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div class="card border-dark mb-2">
+
+            <div class="card-body">
+
+              <div class="row g-3">
+
+                <div class="col">
+                  <div class="form-floating mb-2">
+                    <select class="form-select" aria-label="Default select example" name="proveedor" style="max-width:30%;">
+                      <option selected>Entidad Solicitante</option>
+                      {{#each entidads}}
+                      <option value="{{identidadSolicitante}}">{{nombreent}}</option>
+                      {{/each}}
+                    </select>
+                  </div>
+                  
+                </div>
+
+                <div class="col">
+                  <div class="form-floating mb-2">
+                    <select class="form-select" aria-label="Default select example" name="proveedor" style="max-width:30%;">
+                      <option selected>Subcuenta</option>
+                      {{#each subcuentas}}
+                      <option value="{{idsubcuenta}}">{{nombresub}}</option>
+                      {{/each}}
+                    </select>
+                  </div>
+                </div>                
+              </div>
+            </div>
+          </div>
+
+
+
+
+
+          <div class="card border-dark mb-2">
+
+            <div class="card-body">
+
+              <div class="row g-3">
+
+                <div class="col-md">
+
+                  <div id="date-picker-example" class="md-form md-outline input-with-post-icon datepicker date">
+                    <input placeholder="Select date" type="text" id="fechaFirma" class="form-control"
+                      name="fechaInstalacion">
+                    <label for="example">Fecha Firma del contrato</label>
+                    <i class="fas fa-calendar input-prefix" tabindex=0></i>
+                  </div>
+
+                  <script type="text/javascript">
+                    $(function () {
+                      $("#fechaFirma").datepicker({
+                        format: 'yyyy/mm/dd',
+                        autoclose: true,
+                        todayHighlight: true,
+                        defaultDate: '2021/01/01',
+                      }).datepicker();
+                    });
+                  </script>
+
+                </div>
+
+                <div class="col-md">
+
+                  <div id="date-picker-example" class="md-form md-outline input-with-post-icon datepicker">
+                    <input placeholder="Select date" type="text" id="fechaInicio" class="form-control" name="fechaInicio">
+                    <label for="example">Afiliación ARL o Fecha de inicio</label>
+                    <i class="fas fa-calendar input-prefix" tabindex=0></i>
+                  </div>
+
+                  <script type="text/javascript">
+                    $(function () {
+                      $("#fechaInicio").datepicker({
+                        format: 'yyyy/mm/dd',
+                        autoclose: true,
+                        todayHighlight: true,
+                        defaultDate: '2021/01/01',
+                      }).datepicker();
+                    });
+                  </script>
+                </div>
+
+
+                <div class="col-md">
+                  <div id="date-picker-example" class="md-form md-outline input-with-post-icon datepicker">
+                    <input placeholder="Select date" type="text" id="fechaFin" class="form-control"
+                      name="fechaFirma">
+                    <label for="example">Fecha Terminación de contrato</label>
+                    <i class="fas fa-calendar input-prefix" tabindex=0></i>
+                  </div>
+
+                  <script type="text/javascript">
+                    $(function () {
+                      $("#fechaFin").datepicker({
+                        format: 'yyyy/mm/dd',
+                        autoclose: true,
+                        todayHighlight: true,
+                        defaultDate: '2021/01/01',
+                      }).datepicker();
+                    });
+                  </script>
+
+                </div>
+              </div>              
+            </div>
+          </div>
+
+
+
+
+          <!-- %%%%%%%%%%%%%% footer Modal %%%%%%%%%%%%%% -->
+
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- %%%%%%%%%%%%%% Fin Modal %%%%%%%%%%%%%% -->
+
+
