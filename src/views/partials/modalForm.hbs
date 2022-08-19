@@ -144,7 +144,7 @@
 
                 <div class="col">
                   <div class="form-floating mb-2">
-                    <select class="form-select" aria-label="Default select example" name="entidad" id="entidad" style="max-width:30%;">
+                    <select class="form-select" aria-label="Default select example" name="entidad" id="entidad" style="max-width:90%;">
                       <option selected>Entidad Solicitante</option>
                       {{#each entidads}}
                       <option value="{{identidadSolicitante}}">{{nombreent}}</option>
@@ -158,11 +158,8 @@
 
                 <div class="col">
                   <div class="form-floating mb-2">
-                    <select class="form-select" aria-label="Default select example" name="subcuenta" id="subcuenta" style="max-width:30%;">
-                      <option selected>Subcuenta</option>
-                      {{#each subcuentas}}
-                      <option value="{{idsubcuenta}}">{{nombresub}}</option>
-                      {{/each}}
+                    <select class="form-select" aria-label="Default select example" name="subcuenta" id="subcuenta" style="max-width:90%;">
+                      <option selected>Subcuenta</option>                      
                     </select>
                   </div>
                 </div>
@@ -172,26 +169,31 @@
           </div>
 
                 <div id="sublength" style="display: none">{{subcuentas.length}}</div>
-                {{#each subcuentas}}
-                <div id="entsub{{entidadsolicitante_identidadSolicitante}}" style="display: auto">{{entidadsolicitante_identidadSolicitante}} -- {{nombresub}}</div>
-                {{/each}}
-                <div id="result" style="display: auto">{{subcuentas.length}}</div>
-                <div id="indice" style="display: auto"></div>
+                {{#each subcuentas}}                
+                <input type="hidden" id="varsubIdent{{@index}}" value={{entidadsolicitante_identidadSolicitante}} />
+                <input type="hidden" id="varsubId{{@index}}" value={{idsubcuenta}} />
+                <input type="hidden" id="varsub{{@index}}" value={{nombresub}} />
+                {{/each}}                
 
 
                 <script>
+                  
+                $('#entidad').change(function() {
                   var arr =[]
-                $('#entidad').change(function() {                  
-                  
-                  var sublength = {{{subcuentas.length}}};
-                  var subcuentasJ = {{{subcuentas.values}}}
+                  var sublength = {{{subcuentas.length}}};                 
                   var element = $(this).val()
-                  for(x = 0; x < sublength ; x++) {                      
-                        arr.push(subcuentasJ)                   
-                  }                  
-                  console.log('--arrayn: ',arr, '---sublength: ', sublength)              
+                  $('#subcuenta').children().remove().end().append('<option selected>Subcuenta</option>') ;
+                  for(x = 0; x < sublength ; x++) {
+                      var aident = document.getElementById("varsubIdent"+x).value
+                      var aid = document.getElementById("varsubId"+x).value
+                      var aname = document.getElementById("varsub"+x).value
+                      if(aident == element){
+                        $("#subcuenta").append($("<option></option>").attr("value", aid).text(aname));
+                        arr.push({id: aid, subc:aname})
+                      }
+                  }
+                  console.log('--arrayn: ',arr)                  
                   
-                  console.log('--element: ',element)
                   
                 });
                 

@@ -20,7 +20,7 @@ router.get('/contratos/contratos', async (req, res) => {
     inner join estados on estados_idestados = idestados
     inner join subcuenta on subcuenta_idsubcuenta = idsubcuenta
     inner join usuarios on modificadoPor = idusuarios
-    limit 5000`
+    limit 50`
 
     const subcuenta = `SELECT * from subcuenta ORDER BY nombresub`
     const contratista = `SELECT * from contratista ORDER BY nombrecont`
