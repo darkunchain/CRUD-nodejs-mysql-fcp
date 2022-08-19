@@ -153,6 +153,8 @@
                   </div>
                   
                 </div>
+                
+
 
                 <div class="col">
                   <div class="form-floating mb-2">
@@ -163,12 +165,37 @@
                       {{/each}}
                     </select>
                   </div>
-                </div>                
+                </div>
+
               </div>
             </div>
           </div>
 
+                <div id="sublength" style="display: none">{{subcuentas.length}}</div>
+                {{#each subcuentas}}
+                <div id="entsub{{entidadsolicitante_identidadSolicitante}}" style="display: auto">{{entidadsolicitante_identidadSolicitante}} -- {{nombresub}}</div>
+                {{/each}}
+                <div id="result" style="display: auto">{{subcuentas.length}}</div>
+                <div id="indice" style="display: auto"></div>
 
+
+                <script>
+                  var arr =[]
+                $('#entidad').change(function() {                  
+                  
+                  var sublength = {{{subcuentas.length}}};
+                  var subcuentasJ = {{{subcuentas.values}}}
+                  var element = $(this).val()
+                  for(x = 0; x < sublength ; x++) {                      
+                        arr.push(subcuentasJ)                   
+                  }                  
+                  console.log('--arrayn: ',arr, '---sublength: ', sublength)              
+                  
+                  console.log('--element: ',element)
+                  
+                });
+                
+                </script>
 
 
 

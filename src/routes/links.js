@@ -22,7 +22,7 @@ router.get('/contratos/contratos', async (req, res) => {
     inner join usuarios on modificadoPor = idusuarios
     limit 10`
 
-    const subcuenta = `SELECT idsubcuenta, nombresub from subcuenta ORDER BY nombresub`
+    const subcuenta = `SELECT * from subcuenta ORDER BY nombresub`
     const contratista = `SELECT * from contratista ORDER BY nombrecont`
     const entidad = `SELECT * from entidadsolicitante ORDER BY nombreent`
 
@@ -95,8 +95,8 @@ router.get('/add', async (req, res) => {
 
 router.post('/contratos/add', async (req, res) => {
     console.log('---req.user: ', req.user)
-    const { idusuarios} = req.user
-    const { selectcont, cedulacont, tipocont, objeto, 
+    const {idusuarios} = req.user
+    const {selectcont, objeto, 
         NoContrato, anio, estado, valorInicial, 
         valorFinal, valorAdiciones, entidad, subcuenta, 
         fechaFirma, fechaInicio, fechaFin} = req.body
@@ -112,7 +112,7 @@ router.post('/contratos/add', async (req, res) => {
         modificadoEn, 'creadoPor': idusuarios, 'modificadoPor' : idusuarios,
         'subcuenta_idsubcuenta' : subcuenta, 'estados_idestados':estado        
     };
-    await pool.query('INSERT INTO contrato set ?', [newLink]);
+    //await pool.query('INSERT INTO contrato set ?', [newLink]);
     req.flash('success', 'Contrato almacenado correctamente');
 
     idContratoNew = await pool.query(`SELECT idcontrato from contrato WHERE NoContrato = ?`, noContrato)
@@ -121,7 +121,13 @@ router.post('/contratos/add', async (req, res) => {
     const newQue = {
         'contratista_idcontratista':selectcont,'contrato_idcontrato':idContratoNew[0].idcontrato
     }    
-    await pool.query('INSERT INTO contratistacontrato set ?', [newQue]);
+    //await pool.query('INSERT INTO contratistacontrato set ?', [newQue]);
+    req.flash('success', 'Nueva relacion guardada en base de datos');
+
+    const newQue1 = {
+        'entidadsolicitante_identidadSolicitante':entidad,'contrato_idcontrato':idContratoNew[0].idcontrato
+    }    
+    //await pool.query('INSERT INTO contratoentidad set ?', [newQue1]);
     req.flash('success', 'Nueva relacion guardada en base de datos');
 
 
